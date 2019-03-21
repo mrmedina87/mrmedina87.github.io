@@ -1,0 +1,206 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="frame">
+    <h1>30 days challenge - songs search</h1>
+    <div class="searcher">
+      <input type="text" placeholder="Search your song">
+    </div>
+    <ul class="songs-list">
+    </ul>
+  </div>
+</body>
+<style>
+  body {
+    font-family: Helvetica, sans-serif;
+  }
+
+  .frame {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .frame h1 {
+    text-align: center;
+    font-weight: 100;
+
+  }
+
+  .searcher input {
+    width: 100%;
+    padding: 10px;
+    display: inline-block;
+  }
+
+  ul.songs-list, ul.songs-list li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul.songs-list {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+  }
+
+  ul.songs-list li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: 0px;
+  }
+</style>
+<script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script>
+  $(() => {
+    const songsNames = [
+      'Yellow Ledbetter',
+      'Azul',
+      'Many Shades Of Black',
+      'Blue (Da Ba Dee) - Gabry Ponte Ice Pop Radio',
+      '3 Libras',
+      'Flight 956',
+      '12:51',
+      'Mambo No. 5 (a Little Bit of...)',
+      'Kokomo',
+      'Murder She Wrote (Original Mix)',
+      'The Next Time Around',
+      'El Aprendiz',
+      'Not Fair',
+      'Huelga de Princesas',
+      'Merienda',
+      'Bamboléo',
+      'The Jack',
+      'Go With The Flow',
+      'The Sea',
+      'Rock with You - Single Version',
+      'Can\'t Feel My Face',
+      'You Never Can Tell',
+      'Wolf in Sheeps Clothing',
+      'Cotton Fields',
+      'Porcelain',
+      'Goodnight Moon',
+      'Mountain Sound',
+      'Under The Bridge',
+      'Stolen Dance',
+      'Valle de Valium',
+      'Peor para el Sol',
+      'Chica de Oro',
+      'Ghost Ship',
+      'Fight Test',
+      'Beast Of Burden - Remastered',
+      'Amapola',
+      'Not Dark Yet',
+      'Baby I\'m Yours - feat. Irfane',
+      'Cicatriz Esp',
+      'Dog Days Are Over',
+      'Get Down On It',
+      'Love Will Tear Us Apart',
+      'Where Did You Sleep Last Night',
+      'Inevitable - En Vivo',
+      'Abarajame',
+      'Laura no està',
+      'Los Libros de la Buena Memoria',
+      'Free Bird',
+      'Let\'s Stay Together',
+      'Space Oddity - 2015 Remastered Version',
+      'Wish You Were Here',
+      'There Is a Light That Never Goes Out - 2011 Remaster',
+      'Never Gonna Give You Up',
+      'Under Pressure - Remastered',
+      'Fell In Love With A Boy',
+      'Redbone (Blue Nile - New Orleans, 5.03.17) [Live]',
+      'The Man Who Sold The World',
+      'Wonderful Life',
+      'Suave',
+      'You Make My Dreams',
+      'Should I Stay or Should I Go - Remastered',
+      'Little Green Bag',
+      'Falsa Traición',
+      'Olvídame y Pega la Vuelta',
+      'No Te Creas Tan Importante - En Vivo',
+      'Is This Love - 2017 Remastered Version',
+      'Superlógico',
+      'Lullaby',
+      'Freedom! \'90 - Remastered',
+      'A Day In The Life - Remastered 2009',
+      'The Importance of Being Idle',
+      'High And Dry',
+      'Money',
+      'The Will To Death',
+      'Aserejé',
+      'Delirance',
+      'Pronta Entrega',
+      'Layla',
+      'Irene',
+      'Ludmila',
+      'Melissa',
+      'Here Comes The Sun - Remastered 2009',
+      'Where U Iz',
+      'Día Feliz',
+      'Eye of the Tiger',
+      'Mellow Mood',
+      'True Faith - \'94',
+      'Bohemian Rhapsody - Remastered 2011',
+      'Truth Doesn\'t Make A Noise',
+      'Walking On The Moon - Remastered 2003',
+      'Sun Is Shining',
+      'I Want It That Way',
+      'La fuerza del corazón',
+      'These Arms of Mine',
+      'I Want to Know What Love Is',
+      'La complicidad',
+      'For No One - Remastered 2009',
+      'Hasta Que Me Olvides',
+      'La Llorona',
+      'Ain\'t No Sunshine',
+      'Blow Up The Outside World',
+      'The KKK Took My Baby Away - Remastered',
+      'Only the Lonely',
+      'All Apologies - MTV Unplugged',
+      'Tus Pasos',
+      'The Flower Of Carnage',
+      'Mano A Mano',
+      'Just Friends',
+      'Nada Personal - Remasterizado 2007',
+      'Donde Quiera Que Estes',
+      'Piel Morena',
+      'La Chica de la Boutique',
+      'Drive',
+      'Mirada de Acantilado',
+      'Perfect',
+      'Nena Maldición (feat. Lenny Tavárez)',
+      'Let Me Love You',
+      'X',
+      'Kilómetros',
+    ];
+
+    const list = $('ul.songs-list');
+    const songsLen = songsNames.length;
+
+    const filterList = (term) => {
+      list.empty();
+      for (let s = 0; s < songsLen; s += 1) {
+        const song = songsNames[s];
+        if (song.toLocaleLowerCase().includes(term.toLocaleLowerCase())) {
+          list.append($("<li>").html(song));
+        }
+      }
+    };
+
+    filterList("");
+
+    $(".searcher input").keyup(e => {
+      filterList(e.target.value);
+    });
+  });
+</script>
+</html>
